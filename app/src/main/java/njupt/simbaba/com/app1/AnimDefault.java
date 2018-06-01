@@ -5,7 +5,7 @@ import android.view.animation.Animation;
 
 
 public class AnimDefault implements Animator.AnimatorListener, Animation.AnimationListener {
-    Runnable onAnimationEnd;
+    private Runnable onAnimationEnd;
 
     AnimDefault(Runnable run) {
         onAnimationEnd = run;

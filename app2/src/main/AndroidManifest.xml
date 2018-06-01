@@ -12,11 +12,27 @@
         <activity android:name=".B1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".B2" android:exported="true" />
+        <activity
+            android:name=".B2"
+            android:exported="true" />
+
+        <service
+            android:name=".IBxService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="njupt.simbaba.action.ibx" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".Dialog"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
     </application>
 
 </manifest>

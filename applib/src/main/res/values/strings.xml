@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">app1</string>
-    <string name="a1">A1</string>
-    <string name="a2">A2</string>
+    <string name="a1">A1(List/Grid)</string>
+    <string name="a2">A2(Service Sample)</string>
     <string name="a3">A3</string>
     <string name="an_icon_of_a3">an icon of a3</string>
     <string name="warning_no_match">No Activity for it!</string>
@@ -9,4 +9,6 @@
     <string name="switch_layout">switch layout</string>
     <string name="switch_layout_list">list view</string>
     <string name="switch_layout_grid">grid view</string>
+    <string name="play_music">Play Music</string>
+    <string name="stop_music">Stop Music</string>
 </resources>
