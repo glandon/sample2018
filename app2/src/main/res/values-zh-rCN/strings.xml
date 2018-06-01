@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">第二个应用</string>
+    <string name="this_is_b1" translatable="false">我是Activity B1!</string>
+    <string name="this_is_b2" translatable="false">我是Activity B2!</string>
+</resources>

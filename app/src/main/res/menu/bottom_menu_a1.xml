@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/id_a2"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="A2" />
+    <item
+        android:id="@+id/id_a3"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="A3" />
+    <item
+        android:id="@+id/id_share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:onClick="onShare"
+        android:title="share" />
+</menu>

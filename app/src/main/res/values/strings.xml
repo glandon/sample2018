@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">app1</string>
+    <string name="a1">A1</string>
+    <string name="a2">A2</string>
+    <string name="a3">A3</string>
+    <string name="an_icon_of_a3">an icon of a3</string>
+    <string name="warning_no_match">No Activity for it!</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="share">Share</string>
+    <string name="input_your_signature">Input your signature</string>
+    <string name="preview_of_picture_to_share">Preview of picture to share</string>
+    <string name="choose_picture_failed">Get picture failed!</string>
+</resources>

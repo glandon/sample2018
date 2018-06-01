@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">第一个应用</string>
+    <string name="a1">界面A1</string>
+    <string name="a2">界面A2</string>
+    <string name="a3">界面A3</string>
+    <string name="an_icon_of_a3">界面A3的图标</string>
+    <string name="warning_no_match">没有匹配的Activity!</string>
+    <string name="switch_layout">切换布局</string>
+    <string name="switch_layout_list">列表式布局</string>
+    <string name="switch_layout_grid">表格式布局</string>
+</resources>

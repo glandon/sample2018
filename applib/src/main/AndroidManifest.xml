@@ -1,0 +1,4 @@
+<manifest package="njupt.simbaba.com.applib"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <permission android:name="cn.njupt.simbaba.share.permission" />
+</manifest>
