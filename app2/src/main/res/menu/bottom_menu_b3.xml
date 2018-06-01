@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/id_b1"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="B1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/id_b2"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="B2" />
+    <item
+        android:id="@+id/id_b3"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="B3" />
+</menu>

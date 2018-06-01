@@ -18,6 +18,9 @@
         <activity
             android:name=".B2"
             android:exported="true" />
+        <activity
+            android:name=".B3"
+            android:exported="true" />
 
         <service
             android:name=".IBxService"

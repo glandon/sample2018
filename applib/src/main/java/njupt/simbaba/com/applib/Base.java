@@ -57,6 +57,9 @@ public class Base extends AppCompatActivity {
         } else if (id == R.id.id_of_b2) {
             intent.setClassName("njupt.simbaba.com.app2", "njupt.simbaba.com.app2.B2");
 
+        } else if (id == R.id.id_of_b3) {
+            intent.setClassName("njupt.simbaba.com.app2", "njupt.simbaba.com.app2.B3");
+
         } else if (id == R.id.id_2b) {
             return popupToStartB();
         } else {
@@ -82,6 +85,9 @@ public class Base extends AppCompatActivity {
                 .setOnMenuItemClickListener(this::onBottomBarClicked);
 
         popupMenu.getMenu().add(Menu.NONE, R.id.id_of_b2, Menu.NONE, "B2")
+                .setOnMenuItemClickListener(this::onBottomBarClicked);
+
+        popupMenu.getMenu().add(Menu.NONE, R.id.id_of_b3, Menu.NONE, "B3")
                 .setOnMenuItemClickListener(this::onBottomBarClicked);
 
         popupMenu.show();

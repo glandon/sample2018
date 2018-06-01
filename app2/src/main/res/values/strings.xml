@@ -2,4 +2,5 @@
     <string name="app_name" translatable="false">app2</string>
     <string name="this_is_b1" translatable="false">This is B1!</string>
     <string name="this_is_b2" translatable="false">This is B2!</string>
+    <string name="this_is_b3" translatable="false">This is B3!</string>
 </resources>
