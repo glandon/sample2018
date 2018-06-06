@@ -14,4 +14,11 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void checkPlusEq() {
+        int n = 2;
+        n += n+= n += 2;
+        assertEquals(8, n);
+    }
 }
