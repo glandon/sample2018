@@ -22,8 +22,8 @@ public class B1 extends AppCompatActivity {
         /*
          * write fail, because no SD-CARD permission
          */
-        File dir = Environment.getExternalStorageDirectory();
-        File config = new File(dir, "config.txt");
+        File sdRoot = Environment.getExternalStorageDirectory();
+        File config = new File(sdRoot, "config.txt");
 
         try(FileWriter fileWriter = new FileWriter(config)) {
             fileWriter.write("abc:123");
@@ -50,6 +50,19 @@ public class B1 extends AppCompatActivity {
          */
         File appMusicExDir = getExternalFilesDir(Environment.DIRECTORY_MUSIC);
         config = new File(appMusicExDir, "config.txt");
+
+        try(FileWriter fileWriter = new FileWriter(config)) {
+            fileWriter.write("abc:123");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
+         * write success, although no SD-CARD permission
+         * /sdcard/Android/data/njupt.simbaba.com.app2/settings.xml
+         */
+        File appExtRootDir = new File(sdRoot, String.format("Android/data/%s", getPackageName()));
+        config = new File(appExtRootDir, "settings.xml");
 
         try(FileWriter fileWriter = new FileWriter(config)) {
             fileWriter.write("abc:123");
