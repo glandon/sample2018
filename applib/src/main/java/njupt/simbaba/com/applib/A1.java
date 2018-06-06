@@ -1,7 +1,6 @@
 package njupt.simbaba.com.applib;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -11,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -71,43 +69,30 @@ public class A1 extends Base {
 
             @Override
             public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
-                if (layoutManager instanceof GridLayoutManager) {
-                    drawGrid(c, (GridLayoutManager) layoutManager);
-                } else {
-                    drawLinear(c, (LinearLayoutManager) layoutManager);
-                }
-            }
-
-            private void drawGrid(Canvas c, GridLayoutManager layoutManager) {
                 View child = (View) mRecyclerView.getTag();
                 if (child == null) {
                     return;
                 }
 
                 Paint paint = new Paint();
-                paint.setColor(Color.GREEN);
                 paint.setStrokeWidth(5);
 
+                RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+
+                if (layoutManager instanceof GridLayoutManager) {
+                    paint.setColor(Color.GREEN);
+                    drawFocus(c, child, paint, layoutManager);
+                } else {
+                    paint.setColor(Color.RED);
+                    drawFocus(c, child, paint, layoutManager);
+                }
+            }
+
+            private void drawFocus(Canvas c, View child, Paint paint, RecyclerView.LayoutManager layoutManager) {
                 int width = child.getWidth();
                 int left = child.getLeft();
                 int b = layoutManager.getDecoratedBottom(child);
                 c.drawLine(left, b, left + width, b, paint);
-            }
-
-            private void drawLinear(Canvas c, LinearLayoutManager layoutManager) {
-                View child = (View) mRecyclerView.getTag();
-                if (child == null) {
-                    return;
-                }
-
-                Paint paint = new Paint();
-                paint.setColor(Color.RED);
-                paint.setStrokeWidth(5);
-
-                int width = child.getWidth();
-                int b = layoutManager.getDecoratedBottom(child);
-                c.drawLine(0, b, width, b, paint);
             }
         });
 
@@ -141,8 +126,11 @@ public class A1 extends Base {
 //        }
     }
 
-    private static void sendImplicitBroadcast(Context ctxt, Intent i) {
-        PackageManager pm = ctxt.getPackageManager();
+    /**
+     * @deprecated
+     */
+    private void sendImplicitBroadcast(Intent i) {
+        PackageManager pm = getPackageManager();
         List<ResolveInfo> matches = pm.queryBroadcastReceivers(i, 0);
 
         for (ResolveInfo resolveInfo : matches) {
@@ -152,7 +140,7 @@ public class A1 extends Base {
                             resolveInfo.activityInfo.name);
 
             explicit.setComponent(cn);
-            ctxt.sendBroadcast(explicit);
+            sendBroadcast(explicit);
         }
     }
 
