@@ -17,17 +17,20 @@
         android:id="@+id/btn_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textOn="@string/switch_layout_grid"
+        android:text="@string/switch_layout"
         android:textOff="@string/switch_layout_list"
+        android:textOn="@string/switch_layout_grid"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/switch_layout"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:paddingTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/name_of_activity" />
 
 

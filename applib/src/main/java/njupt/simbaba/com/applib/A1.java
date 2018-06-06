@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,22 +17,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 
-
 public class A1 extends Base {
     public static String ACTION_SHARE_PICTURE = "cn.njupt.action.share_picture";
-    public static String PERMISSION_OF_SHARE =  "cn.njupt.simbaba.share.permission";
+    public static String PERMISSION_OF_SHARE = "cn.njupt.simbaba.share.permission";
     private RecyclerView mRecyclerView;
-    private DividerItemDecoration mDividerV;
-    private DividerItemDecoration mDividerH;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +42,74 @@ public class A1 extends Base {
         mRecyclerView = findViewById(R.id.list_view);
         mRecyclerView.setAdapter(new MyAdapter());
 
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                View child = rv.findChildViewUnder(e.getX(), e.getY());
+                rv.setTag(child);
+                rv.invalidate();
+                return false;
+            }
+
+            /**
+             * TODO: why not show toast, why onTouch not executed?
+             * @param rv, the RecyclerView
+             * @param e, the TouchPoint
+             */
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+                Toast.makeText(A1.this, "onTouch!", Toast.LENGTH_SHORT).show();
+                super.onTouchEvent(rv, e);
+            }
+        });
+
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 outRect.bottom = getResources().getDimensionPixelSize(R.dimen.list_item_gap);
             }
-        });
 
-        mDividerV = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        mDividerH = new DividerItemDecoration(this,DividerItemDecoration.HORIZONTAL);
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+                if (layoutManager instanceof GridLayoutManager) {
+                    drawGrid(c, (GridLayoutManager) layoutManager);
+                } else {
+                    drawLinear(c, (LinearLayoutManager) layoutManager);
+                }
+            }
+
+            private void drawGrid(Canvas c, GridLayoutManager layoutManager) {
+                View child = (View) mRecyclerView.getTag();
+                if (child == null) {
+                    return;
+                }
+
+                Paint paint = new Paint();
+                paint.setColor(Color.GREEN);
+                paint.setStrokeWidth(5);
+
+                int width = child.getWidth();
+                int left = child.getLeft();
+                int b = layoutManager.getDecoratedBottom(child);
+                c.drawLine(left, b, left + width, b, paint);
+            }
+
+            private void drawLinear(Canvas c, LinearLayoutManager layoutManager) {
+                View child = (View) mRecyclerView.getTag();
+                if (child == null) {
+                    return;
+                }
+
+                Paint paint = new Paint();
+                paint.setColor(Color.RED);
+                paint.setStrokeWidth(5);
+
+                int width = child.getWidth();
+                int b = layoutManager.getDecoratedBottom(child);
+                c.drawLine(0, b, width, b, paint);
+            }
+        });
 
         Switch btnSwitch = findViewById(R.id.btn_switch);
         btnSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> layout(isChecked));
@@ -59,16 +121,10 @@ public class A1 extends Base {
     private void layout(boolean grid) {
         RecyclerView.LayoutManager layoutManager;
 
-        mRecyclerView.removeItemDecoration(mDividerV);
-        mRecyclerView.removeItemDecoration(mDividerH);
-
         if (!grid) {
             layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            mRecyclerView.addItemDecoration(mDividerV);
         } else {
-            layoutManager = new GridLayoutManager(this,2);
-            mRecyclerView.addItemDecoration(mDividerH);
-            mRecyclerView.addItemDecoration(mDividerV);
+            layoutManager = new GridLayoutManager(this, 2);
         }
 
         mRecyclerView.setLayoutManager(layoutManager);
@@ -86,12 +142,12 @@ public class A1 extends Base {
     }
 
     private static void sendImplicitBroadcast(Context ctxt, Intent i) {
-        PackageManager pm=ctxt.getPackageManager();
-        List<ResolveInfo> matches=pm.queryBroadcastReceivers(i, 0);
+        PackageManager pm = ctxt.getPackageManager();
+        List<ResolveInfo> matches = pm.queryBroadcastReceivers(i, 0);
 
         for (ResolveInfo resolveInfo : matches) {
-            Intent explicit=new Intent(i);
-            ComponentName cn=
+            Intent explicit = new Intent(i);
+            ComponentName cn =
                     new ComponentName(resolveInfo.activityInfo.applicationInfo.packageName,
                             resolveInfo.activityInfo.name);
 
@@ -102,7 +158,7 @@ public class A1 extends Base {
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         private int data[] = {
-                0, 1,1,1,2,4,1,6,8,1,3,7
+                0, 1, 1, 1, 2, 4, 1, 6, 8, 1, 3, 7
         };
 
         @NonNull
