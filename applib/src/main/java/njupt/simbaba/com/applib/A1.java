@@ -13,11 +13,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class A1 extends Base {
     public static String ACTION_SHARE_PICTURE = "cn.njupt.action.share_picture";
     public static String PERMISSION_OF_SHARE = "cn.njupt.simbaba.share.permission";
     private RecyclerView mRecyclerView;
+    private GestureDetector mGesture;
 
 
     @Override
@@ -37,16 +40,31 @@ public class A1 extends Base {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a1);
 
+        mGesture = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                View child = mRecyclerView.findChildViewUnder(e.getX(), e.getY());
+                if (child==null) {
+                    return false;
+                }
+
+                mRecyclerView.setTag(child);
+                Rect rect = new Rect();
+                child.getHitRect(rect);
+                mRecyclerView.invalidate(rect);
+
+                child.startAnimation(AnimationUtils.loadAnimation(A1.this, android.R.anim.fade_in));
+                return true;
+            }
+        });
+
         mRecyclerView = findViewById(R.id.list_view);
         mRecyclerView.setAdapter(new MyAdapter());
 
         mRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                View child = rv.findChildViewUnder(e.getX(), e.getY());
-                rv.setTag(child);
-                rv.invalidate();
-                return false;
+                return mGesture.onTouchEvent(e);
             }
 
             /**
@@ -70,7 +88,7 @@ public class A1 extends Base {
             @Override
             public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
                 View child = (View) mRecyclerView.getTag();
-                if (child == null) {
+                if (child == null || !child.isShown()) {
                     return;
                 }
 
