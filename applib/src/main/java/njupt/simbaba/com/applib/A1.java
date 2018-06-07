@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,6 +34,7 @@ public class A1 extends Base {
     public static String PERMISSION_OF_SHARE = "cn.njupt.simbaba.share.permission";
     private RecyclerView mRecyclerView;
     private GestureDetector mGesture;
+    private ItemTouchHelper mItemTouchHelper;
 
 
     @Override
@@ -40,7 +42,43 @@ public class A1 extends Base {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a1);
 
+        mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                if (recyclerView.getLayoutManager() instanceof GridLayoutManager) {
+                    return makeMovementFlags(ItemTouchHelper.LEFT |
+                            ItemTouchHelper.RIGHT|
+                            ItemTouchHelper.UP|
+                            ItemTouchHelper.DOWN, 0);
+                } else {
+                    return makeMovementFlags(ItemTouchHelper.UP|
+                            ItemTouchHelper.DOWN, 0);
+                }
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        });
+
         mGesture = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                View view = mRecyclerView.findChildViewUnder(e.getX(), e.getY());
+                if (view == null) {
+                    return;
+                }
+                RecyclerView.ViewHolder viewHolder = mRecyclerView.getChildViewHolder(view);
+                mItemTouchHelper.startDrag(viewHolder);
+            }
+
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 View child = mRecyclerView.findChildViewUnder(e.getX(), e.getY());
@@ -60,6 +98,7 @@ public class A1 extends Base {
 
         mRecyclerView = findViewById(R.id.list_view);
         mRecyclerView.setAdapter(new MyAdapter());
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
             @Override
