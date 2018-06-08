@@ -87,10 +87,15 @@ public class A2 extends Base {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if (mService != null) {
-            unbindService(mServiceConnection);
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // unbind connection
+        unbindService(mServiceConnection);
+
+        // stop the service explicity
+        Intent intent = new Intent("njupt.simbaba.action.ibx");
+        intent.setPackage("njupt.simbaba.com.app2");
+        stopService(intent);
     }
 }
