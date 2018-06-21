@@ -32,7 +32,6 @@ public class Base extends AppCompatActivity {
         sb.append(" )");
 
         name.setText(sb.toString());
-
     }
 
     boolean onBottomBarClicked(MenuItem item) {

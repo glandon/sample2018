@@ -14,44 +14,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name="njupt.simbaba.com.applib.A1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="http"
                     android:host="www.simbaba.com"
-                    android:pathPattern="/app" />
+                    android:pathPattern="/app"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="njupt.simbaba.com.applib.A2"
             android:exported="true" />
-
         <activity
             android:name="njupt.simbaba.com.applib.A3"
             android:exported="true" />
-
         <activity
             android:name=".SharePicture"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
 
-        <!--<receiver-->
-        <!--android:name=".ShareReceiver"-->
-        <!--android:enabled="true"-->
-        <!--android:exported="true">-->
-        <!--<intent-filter>-->
-        <!--<category android:name="android.intent.category.DEFAULT" />-->
-        <!--<action android:name="cn.njupt.action.share_picture" />-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name=".ShareReceiver" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"> -->
+        <!-- <intent-filter> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- <action android:name="cn.njupt.action.share_picture" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.file_provider"
@@ -61,6 +60,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/share_paths" />
         </provider>
+
+        <activity android:name=".ListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

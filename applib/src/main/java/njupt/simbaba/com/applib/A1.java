@@ -14,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -38,9 +39,21 @@ public class A1 extends Base {
 
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("simbaba", "欣爸爸！");
+        Log.d("simbaba", "onSaveInstanceState: " + outState.getString("simbaba"));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a1);
+
+        Log.d("simbaba", "savedInstanceState: " + savedInstanceState);
+        if (savedInstanceState != null) {
+            Log.d("simbaba", savedInstanceState.getString("simbaba"));
+        }
 
         mItemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
             @Override
